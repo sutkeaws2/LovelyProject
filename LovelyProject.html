@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Question for You ❤️</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #ffa9c3;
+    box-sizing: border-box;
+  }
+  .frame {
+    display: inline-block;
+    border: 5px solid #c70063;
+    border-radius: 15px;
+    padding: 20px;
+    background: white;
+  }
+  img {
+    max-width: 300px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    transition: all 0.3s ease;
+  }
+  .btn {
+    font-size: 18px;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s;
+  }
+  .yes { background-color: #fd56aa; color: white; }
+  .no { background-color: #cccccc; }
+  .love {
+    background-color: red;
+    color: white;
+    font-size: 30px !important;
+    padding: 20px 40px;
+  }
+  .message-box {
+    border: 3px dashed #ee097b;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 20px;
+    background: #ffffff;
+  }
+</style>
+</head>
+<body>
+
+<div class="frame" id="mainFrame">
+  <h1 id="question">คุณรักเค้าไหม? 💖</h1>
+  <img id="gif" src="https://media.tenor.com/76BaX0eo304AAAAj/kitty-kitty-heart.gif" alt="cute gif">
+  <div id="btnContainer"></div>
+</div>
+
+<script>
+  const gif = document.getElementById('gif');
+  const question = document.getElementById('question');
+  const btnContainer = document.getElementById('btnContainer');
+  let yesBtnSize = 18;
+  let noCount = 0;
+
+
+  let gifs = ["https://media.tenor.com/76BaX0eo304AAAAj/kitty-kitty-heart.gif", 
+    "https://media.tenor.com/0mrkwsxjXc0AAAAi/myaowl.gif",
+    "https://media.tenor.com/HtS3cuo0aZUAAAAi/%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B9%84%E0%B8%AB%E0%B9%89-%E0%B8%AE%E0%B8%B7%E0%B8%AD%E0%B9%86.gif",
+    "https://media1.tenor.com/m/kEZzd8WrRpAAAAAC/peach-peach-and-goma.gif",
+    "https://media.tenor.com/C35t4Pf5GlgAAAAi/peach-and-goma-cute.gif",
+    "https://media1.tenor.com/m/BTKc_wRF-U0AAAAC/love-ily.gif"
+  ]
+
+  function initButtons() {
+    btnContainer.innerHTML = `
+      <button class="btn yes" id="yesBtn">Yes</button>
+      <button class="btn no" id="noBtn">No</button>
+    `;
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+
+    yesBtn.addEventListener('click', () => yesClick(yesBtn));
+    noBtn.addEventListener('click', () => noClick(yesBtn, noBtn));
+  }
+
+  function resetPage() {
+    noCount = 0;
+    yesBtnSize = 18;
+    question.textContent = "รักเค้าไหม?💕";
+    
+    gif.src = "https://media.tenor.com/CL7GBJNozbsAAAAi/molang.gif";
+    initButtons();
+  }
+
+  function yesClick(yesBtn) {
+    
+    gif.src = "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif";
+    question.textContent = "เย่ เค้าก็รักเธอเหมือนกัน💗";
+    btnContainer.innerHTML = `<button class="btn" id="homeBtn">Home</button>`;
+    document.getElementById('homeBtn').addEventListener('click', resetPage);
+  }
+
+  function noClick(yesBtn, noBtn) {
+    yesBtnSize += 10;
+    yesBtn.style.fontSize = yesBtnSize + 'px';
+    noCount++;
+    gif.src = gifs[noCount]
+    if (noCount >= 5) {
+      noBtn.remove();
+      yesBtn.textContent = "Love 💕";
+      yesBtn.classList.add('love');
+      yesBtn.onclick = () => {
+        
+        gif.src = "https://media1.tenor.com/m/qR1sGRNmfqsAAAAC/besito-catlove.gif";
+        question.innerHTML = `<div class="message-box">รักเหมือนกันนนนนน 💞</div>`;
+        btnContainer.innerHTML = `<button class="btn" id="homeBtn">Home</button>`;
+        document.getElementById('homeBtn').addEventListener('click', resetPage);
+      };
+    }
+  }
+
+  resetPage();
+</script>
+
+</body>
+</html>
